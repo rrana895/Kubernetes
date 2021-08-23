@@ -1,0 +1,25 @@
+apiVersion: apps/v1 #different than replicationController
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels: 
+      app: myapp
+      type: front-end
+
+spec:
+  template:
+    
+    metadata: #Pod
+      name: myapp-pod
+      labels:
+         app: myapp
+         type: front-end
+    spec: #Pod
+      containers:
+        - name: nginx-controller
+          image: nginx   
+  
+  replicas: 6
+  selector: # replicaSet selector also provides many other options for matching labels that were not available in the replication controller.
+    matchlabels: #simply specifies the matches the labels specified under it to the labels on the pod.
+      type: front-end
